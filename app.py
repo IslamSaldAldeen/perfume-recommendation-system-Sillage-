@@ -483,6 +483,33 @@ st.markdown(
         .perfume-img-wrap { flex-basis: 92px; min-height: 118px; border-radius: 16px; }
         .perfume-img { height: 118px; }
     }
+
+    /* Hide Streamlit default header / menu / footer */
+    
+    #MainMenu {
+        visibility: hidden;
+    }
+
+    header {
+        visibility: hidden;
+    }
+
+    footer {
+        visibility: hidden;
+    }
+
+    [data-testid="stToolbar"] {
+        visibility: hidden;
+    }
+
+    [data-testid="stDecoration"] {
+        visibility: hidden;
+    }
+
+    [data-testid="stStatusWidget"] {
+        visibility: hidden;
+   }
+   
     </style>
     """,
     unsafe_allow_html=True,
@@ -703,7 +730,7 @@ st.markdown(
     <div class="hero">
         <div class="logo">sillage</div>
         <h1>Perfume <em>Intelligence</em><br/>Recommendation System</h1>
-        <p>Soft Luxury Design · K-Means Clustering · TF-IDF · Content-Based Recommender · Association Rule Mining</p>
+        
     </div>
     """,
     unsafe_allow_html=True,
