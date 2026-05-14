@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+
+.env
+.venv/
+venv/
+
+.DS_Store
+
+# Optional: ignore zip backups
+*.zip
+
+# Optional: ignore large output files if not needed
+# outputs/
