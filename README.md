@@ -61,3 +61,14 @@ perfume_project_with_luxury_frontend/
     ├── training.py
     ├── association_rules.py
     └── recommender.py
+
+## To Run the Project
+
+1. `pip install -r requirements.txt`  
+   Installs all the required libraries needed to run the project.
+
+2. `python train.py`  
+   Loads the dataset, preprocesses the data, trains the models, generates the association rules, and saves the required files inside the `models/` and `outputs/` folders.
+
+3. `streamlit run app.py`  
+   Starts the Streamlit web application so the user can interact with the perfume recommendation system.
