@@ -577,7 +577,15 @@ def accord_counter(data, limit=15):
     values = [v for v in values if v and v != "nan"]
     return pd.DataFrame(Counter(values).most_common(limit), columns=["Accord", "Count"])
 
+def make_arrow_safe(df):
+    safe_df = df.copy()
 
+    for col in safe_df.columns:
+        safe_df[col] = safe_df[col].apply(
+            lambda x: ", ".join(sorted(list(x))) if isinstance(x, (set, frozenset)) else x
+        )
+
+    return safe_df
 
 def render_pretty_bar_chart(df, x_col, y_col, title=""):
     if df.empty:
@@ -597,7 +605,7 @@ def render_pretty_bar_chart(df, x_col, y_col, title=""):
         .configure_axis(gridColor="#ead9e2", domainColor="#d8bdca", tickColor="#d8bdca")
         .configure_title(fontSize=22, color="#3b2430", font="Cormorant Garamond")
     )
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, width="stretch")
 
 
 
@@ -860,7 +868,7 @@ with rec_tab:
                     render_perfume_card(row, rank=idx, also=True)
 
             with st.expander("View associated notes / accords"):
-                st.dataframe(associated_items, use_container_width=True)
+                st.dataframe(make_arrow_safe(associated_items), width="stretch")
 
 with clusters_tab:
     st.markdown("### Fragrance Clusters")
@@ -874,7 +882,7 @@ with clusters_tab:
             .reset_index()
             .sort_values("perfumes", ascending=False)
         )
-        st.dataframe(cluster_summary, use_container_width=True, hide_index=True)
+        st.dataframe(cluster_summary, width="stretch", hide_index=True)
 
         selected_cluster = st.selectbox("Explore cluster", cluster_summary["cluster_name"].tolist())
         samples = final_data[final_data["cluster_name"] == selected_cluster].sort_values("Weighted Rating", ascending=False).head(10)
@@ -894,7 +902,8 @@ with rules_tab:
         """,
         unsafe_allow_html=True,
     )
-    st.dataframe(strong_rules.head(50), use_container_width=True, hide_index=True)
+    rules_display = make_arrow_safe(strong_rules.head(50))
+    st.dataframe(rules_display, width="stretch", hide_index=True)
 
 with insights_tab:
     st.markdown("### Data Insights")
@@ -913,4 +922,4 @@ with insights_tab:
         st.metric("Columns", f"{final_data.shape[1]:,}")
 
     st.markdown("#### Preview Final Dataset")
-    st.dataframe(final_data.head(30), use_container_width=True)
+    st.dataframe(final_data.head(30), width="stretch")
