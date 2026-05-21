@@ -37,13 +37,13 @@ The system then returns:
 ```text
 perfume_project_with_luxury_frontend/
 │
-├── app.py                  # Streamlit user interface
-├── train.py                # Run once to preprocess data and save models/files
-├── requirements.txt        # Required Python libraries
-├── README.md               # Project documentation
+├── app.py
+├── train.py
+├── requirements.txt
+├── README.md
 │
 ├── data/
-│   └── perfumes.xlsx       # Original perfume dataset
+│   └── perfumes.xlsx
 │
 ├── models/
 │   ├── tfidf_model.pkl
@@ -61,14 +61,25 @@ perfume_project_with_luxury_frontend/
     ├── training.py
     ├── association_rules.py
     └── recommender.py
+```
 
 ## To Run the Project
 
-1. `pip install -r requirements.txt`  
-   Installs all the required libraries needed to run the project.
+1. Install the required libraries:
 
-2. `python train.py`  
-   Loads the dataset, preprocesses the data, trains the models, generates the association rules, and saves the required files inside the `models/` and `outputs/` folders.
+```bash
+pip install -r requirements.txt
+```
 
-3. `streamlit run app.py`  
+2. Train/preprocess the system:
+
+```bash
+python train.py
+```
+
+3. Run the Streamlit app:
+
+```bash
+streamlit run app.py
+```
    Starts the Streamlit web application so the user can interact with the perfume recommendation system.
